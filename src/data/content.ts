@@ -27,7 +27,7 @@ export interface ChapterContent {
   title: string;
   subtitle: string;
   body: string;
-  asciiStyle: "double" | "round" | "box" | "bold" | "shade";
+  asciiStyle: "double" | "round" | "box" | "heavy" | "dashed";
 }
 
 export const identity = {
@@ -76,7 +76,7 @@ export const chapters: ChapterContent[] = [
     title: "THE LEADER",
     subtitle: "chapter_04.md",
     body: "Technology matters most when it amplifies people.\n\nWhether mentoring students, contributing to institutional AI governance, or leading community initiatives, I care deeply about making complex systems more accessible to others.\n\nI believe the future of AI will not just be defined by capability—but by responsibility, accessibility, and trust.",
-    asciiStyle: "bold",
+    asciiStyle: "heavy",
   },
   {
     id: "future",
@@ -84,7 +84,7 @@ export const chapters: ChapterContent[] = [
     title: "THE FUTURE",
     subtitle: "chapter_05.sh",
     body: "Right now, AI can generate answers.\n\nThe next generation of systems will need to:\n\n* remember context\n* reason across time\n* collaborate with humans\n* operate responsibly in critical domains\n\nThat's the future I want to help build.\n\nNot just smarter systems.\nSystems that understand progression, uncertainty, and people.\n\nThis story is still being written.",
-    asciiStyle: "shade",
+    asciiStyle: "dashed",
   },
 ];
 

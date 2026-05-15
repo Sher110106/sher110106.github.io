@@ -9,7 +9,7 @@ export function BuilderPanel({ active }: { active: boolean }) {
   const ch = chapters[1];
 
   return (
-    <div className="min-w-[100vw] w-screen min-h-screen md:h-screen flex items-center relative overflow-hidden py-8 md:py-0">
+    <div className="min-h-screen w-full flex items-center relative overflow-hidden md:min-w-[100vw] md:w-screen md:h-screen py-8 md:py-0">
       <div className="z-10 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto w-full">
         <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-8 items-start">
           <motion.div

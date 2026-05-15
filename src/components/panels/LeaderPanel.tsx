@@ -9,7 +9,7 @@ export function LeaderPanel({ active }: { active: boolean }) {
   const ch = chapters[3];
 
   return (
-    <div className="min-w-[100vw] w-screen min-h-screen md:h-screen flex items-center relative overflow-hidden py-8 md:py-0">
+    <div className="min-h-screen w-full flex items-center relative overflow-hidden md:min-w-[100vw] md:w-screen md:h-screen py-8 md:py-0">
       <div className="z-10 px-4 sm:px-8 md:px-16 max-w-6xl mx-auto w-full">
         <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-start">
           <motion.div

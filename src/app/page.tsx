@@ -29,13 +29,9 @@ export default function Home() {
       <ParticleField />
 
       {isMobile ? (
-        <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
+        <div>
           {panels.map((panel, i) => (
-            <div
-              key={i}
-              id={`panel-${i}`}
-              className="snap-start min-h-screen w-screen"
-            >
+            <div key={i} id={`panel-${i}`}>
               {panel}
             </div>
           ))}

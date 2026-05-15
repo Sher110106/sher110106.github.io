@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-type AsciiStyle = "double" | "round" | "box" | "bold" | "shade";
+type AsciiStyle = "double" | "round" | "box" | "heavy" | "dashed";
 
 const borders: Record<AsciiStyle, { tl: string; tr: string; bl: string; br: string; h: string; v: string }> = {
   double: { tl: "╔", tr: "╗", bl: "╚", br: "╝", h: "═", v: "║" },
   round: { tl: "╭", tr: "╮", bl: "╰", br: "╯", h: "─", v: "│" },
   box: { tl: "┌", tr: "┐", bl: "└", br: "┘", h: "─", v: "│" },
-  bold: { tl: "┏", tr: "┓", bl: "┗", br: "┛", h: "━", v: "┃" },
-  shade: { tl: "┌", tr: "┐", bl: "└", br: "┘", h: "┈", v: "┊" },
+  heavy: { tl: "╔", tr: "╗", bl: "╚", br: "╝", h: "═", v: "║" },
+  dashed: { tl: "╭", tr: "╮", bl: "╰", br: "╯", h: "─", v: "│" },
 };
 
 interface AsciiFrameProps {

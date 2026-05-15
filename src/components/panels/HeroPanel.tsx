@@ -7,7 +7,7 @@ import { identity } from "@/data/content";
 
 export function HeroPanel() {
   return (
-    <div className="min-w-[100vw] w-screen h-screen flex items-center justify-center relative">
+    <div className="min-h-screen w-full flex items-center justify-center relative md:min-w-[100vw] md:w-screen">
       <div className="z-10 px-4 sm:px-8 max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0 }}
