@@ -8,8 +8,8 @@ const borders: Record<AsciiStyle, { tl: string; tr: string; bl: string; br: stri
   double: { tl: "╔", tr: "╗", bl: "╚", br: "╝", h: "═", v: "║" },
   round: { tl: "╭", tr: "╮", bl: "╰", br: "╯", h: "─", v: "│" },
   box: { tl: "┌", tr: "┐", bl: "└", br: "┘", h: "─", v: "│" },
-  bold: { tl: "▄", tr: "▄", bl: "▀", br: "▀", h: "▄", v: "█" },
-  shade: { tl: "░", tr: "░", bl: "░", br: "░", h: "░", v: "░" },
+  bold: { tl: "┏", tr: "┓", bl: "┗", br: "┛", h: "━", v: "┃" },
+  shade: { tl: "┌", tr: "┐", bl: "└", br: "┘", h: "┈", v: "┊" },
 };
 
 interface AsciiFrameProps {
