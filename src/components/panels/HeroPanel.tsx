@@ -8,14 +8,14 @@ import { identity } from "@/data/content";
 export function HeroPanel() {
   return (
     <div className="min-w-[100vw] w-screen h-screen flex items-center justify-center relative">
-      <div className="z-10 px-8 max-w-4xl mx-auto text-center">
+      <div className="z-10 px-4 sm:px-8 max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
-          className="mb-10"
+          className="mb-6 sm:mb-10"
         >
-          <h1 className="font-mono font-light text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
+          <h1 className="font-mono font-light text-3xl sm:text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
             {identity.heroWords.map((word, i) => (
               <motion.span
                 key={word}

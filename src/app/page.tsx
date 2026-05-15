@@ -34,7 +34,7 @@ export default function Home() {
             <div
               key={i}
               id={`panel-${i}`}
-              className="snap-start h-screen w-screen overflow-hidden"
+              className="snap-start min-h-screen w-screen"
             >
               {panel}
             </div>

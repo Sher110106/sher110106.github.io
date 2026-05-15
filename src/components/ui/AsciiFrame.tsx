@@ -22,7 +22,6 @@ interface AsciiFrameProps {
 export function AsciiFrame({ style, title, subtitle, trigger }: AsciiFrameProps) {
   const [visible, setVisible] = useState(false);
   const b = borders[style];
-  const width = Math.max(title.length, subtitle?.length || 0) + 4;
 
   useEffect(() => {
     if (trigger) {
@@ -35,23 +34,26 @@ export function AsciiFrame({ style, title, subtitle, trigger }: AsciiFrameProps)
 
   if (!visible) return null;
 
-  const topLine = b.tl + b.h.repeat(width - 2) + b.tr;
-  const botLine = b.bl + b.h.repeat(width - 2) + b.br;
-  const padTitle = " ".repeat(Math.max(0, (width - 4 - title.length) / 2));
-  const titleLine = b.v + " " + padTitle + title + padTitle + " " + b.v;
+  const innerWidth = Math.max(title.length, subtitle?.length || 0);
+
+  const topLine = b.tl + b.h.repeat(innerWidth + 2) + b.tr;
+  const botLine = b.bl + b.h.repeat(innerWidth + 2) + b.br;
+
+  function padLine(text: string): string {
+    const totalPad = innerWidth - text.length;
+    const left = Math.floor(totalPad / 2);
+    const right = totalPad - left;
+    return b.v + " " + " ".repeat(left) + text + " ".repeat(right) + " " + b.v;
+  }
 
   return (
     <div
-      className="font-mono text-[13px] leading-tight whitespace-pre text-accent-amber animate-in fade-in duration-500"
+      className="font-mono text-[10px] md:text-[12px] lg:text-[13px] leading-tight whitespace-pre text-accent-amber overflow-x-auto"
       style={{ lineHeight: "1.3" }}
     >
       <div>{topLine}</div>
-      <div>{titleLine}</div>
-      {subtitle && (
-        <div>
-          {b.v} {subtitle}{" ".repeat(Math.max(0, width - 4 - subtitle.length))} {b.v}
-        </div>
-      )}
+      <div>{padLine(title)}</div>
+      {subtitle && <div>{padLine(subtitle)}</div>}
       <div>{botLine}</div>
     </div>
   );
