@@ -29,7 +29,7 @@ export default function Home() {
       <ParticleField />
 
       {isMobile ? (
-        <div>
+        <div className="relative z-10">
           {panels.map((panel, i) => (
             <div key={i} id={`panel-${i}`}>
               {panel}
@@ -39,7 +39,7 @@ export default function Home() {
       ) : (
         <div
           ref={containerRef}
-          className="flex overflow-x-scroll snap-x snap-mandatory h-screen"
+          className="relative z-10 flex overflow-x-scroll snap-x snap-mandatory h-screen"
         >
           {panels.map((panel, i) => (
             <div

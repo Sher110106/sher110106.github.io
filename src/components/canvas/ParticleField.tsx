@@ -77,8 +77,11 @@ export function ParticleField() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.globalAlpha = 0.6;
+        ctx.globalAlpha = 0.85;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 6;
         ctx.fill();
+        ctx.shadowBlur = 0;
 
         for (let j = i + 1; j < particles.length; j++) {
           const q = particles[j];
@@ -90,7 +93,7 @@ export function ParticleField() {
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
             ctx.strokeStyle = p.color;
-            ctx.globalAlpha = 0.08 * (1 - dist / CONNECTION_DISTANCE);
+            ctx.globalAlpha = 0.15 * (1 - dist / CONNECTION_DISTANCE);
             ctx.stroke();
           }
         }
@@ -115,5 +118,5 @@ export function ParticleField() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 -z-10" />;
+  return <canvas ref={canvasRef} className="fixed inset-0 z-0" />;
 }
