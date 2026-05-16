@@ -29,6 +29,35 @@ export function useScrollPanel(totalPanels: number) {
     return () => container.removeEventListener("scroll", handleScroll);
   }, [totalPanels, isMobile]);
 
+  // Mobile: use IntersectionObserver to track active panel
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const observers: IntersectionObserver[] = [];
+    const handleIntersect = (index: number) => (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActivePanel(index);
+        }
+      });
+    };
+
+    for (let i = 0; i < totalPanels; i++) {
+      const el = document.getElementById(`panel-${i}`);
+      if (!el) continue;
+      const observer = new IntersectionObserver(handleIntersect(i), {
+        root: null,
+        threshold: 0.5,
+      });
+      observer.observe(el);
+      observers.push(observer);
+    }
+
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+    };
+  }, [isMobile, totalPanels]);
+
   const scrollTo = useCallback(
     (index: number) => {
       const container = containerRef.current;

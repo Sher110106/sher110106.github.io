@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AsciiFrame } from "@/components/ui/AsciiFrame";
+import { ChapterBadge } from "@/components/ui/ChapterBadge";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { chapters, projects } from "@/data/content";
 
@@ -9,7 +9,7 @@ export function BuilderPanel({ active }: { active: boolean }) {
   const ch = chapters[1];
 
   return (
-    <div className="min-h-screen w-full flex items-center relative overflow-hidden md:min-w-[100vw] md:w-screen md:h-screen py-8 md:py-0">
+    <div className="min-h-screen w-full flex items-start md:items-center relative overflow-visible md:overflow-hidden md:min-w-[100vw] md:w-screen md:h-screen py-8 md:py-0">
       <div className="z-10 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto w-full">
         <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-8 items-start">
           <motion.div
@@ -19,9 +19,8 @@ export function BuilderPanel({ active }: { active: boolean }) {
             className="md:sticky md:top-24"
           >
             <div className="mb-4 md:mb-6">
-              <AsciiFrame
-                style={ch.asciiStyle}
-                title={`CHAPTER_0${ch.number}`}
+              <ChapterBadge
+                number={ch.number}
                 subtitle={ch.subtitle}
                 trigger={active}
               />
