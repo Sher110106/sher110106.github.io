@@ -11,14 +11,19 @@ interface Particle {
   color: string;
 }
 
-const PARTICLE_COUNT = 180;
 const CONNECTION_DISTANCE = 100;
+
+function getParticleCount() {
+  if (typeof window === "undefined") return 180;
+  return window.innerWidth < 768 ? 60 : 180;
+}
 
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const animRef = useRef<number>(0);
+  const countRef = useRef<number>(180);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -29,13 +34,14 @@ export function ParticleField() {
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      countRef.current = getParticleCount();
       initParticles();
     };
 
     const initParticles = () => {
       const particles: Particle[] = [];
       const colors = ["#F59E0B", "#EF4444", "#F5F0E8", "#A8A29E", "#A78BFA"];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
+      for (let i = 0; i < countRef.current; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
