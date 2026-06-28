@@ -10,7 +10,7 @@ interface PixelProgressProps {
 export function PixelProgress({ total, active, labels, onSelect }: PixelProgressProps) {
   return (
     <div className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-50 font-mono">
-      <div className="flex items-center gap-1.5 md:gap-2 bg-bg-deep/90 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-border-subtle">
+      <div className="flex items-center gap-1.5 md:gap-2 bg-bg-surface/90 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-border-subtle">
         {Array.from({ length: total }).map((_, i) => (
           <div key={i} className="flex items-center gap-1 md:gap-2">
             <button

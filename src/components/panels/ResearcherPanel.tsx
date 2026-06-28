@@ -9,7 +9,7 @@ export function ResearcherPanel({ active }: { active: boolean }) {
   const ch = chapters[2];
 
   return (
-    <div className="min-h-screen w-full flex items-start md:items-center relative overflow-visible md:overflow-hidden md:min-w-[100vw] md:w-screen md:h-screen py-8 md:py-0">
+    <div className="min-h-screen w-full flex items-start lg:items-center relative py-8 lg:py-0 lg:min-w-[100vw] lg:w-screen lg:h-screen lg:overflow-hidden">
       <div className="z-10 px-4 sm:px-8 md:px-16 max-w-6xl mx-auto w-full">
         <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-start">
           <motion.div
@@ -27,7 +27,7 @@ export function ResearcherPanel({ active }: { active: boolean }) {
             <h2 className="font-mono font-light text-3xl sm:text-4xl md:text-6xl tracking-tight text-accent-amber mb-4 md:mb-6">
               {ch.title}
             </h2>
-            <div className="font-mono text-[11px] sm:text-[13px] text-text-muted leading-relaxed whitespace-pre-line">
+            <div className="font-sans text-[13px] sm:text-[15px] text-text-muted leading-relaxed whitespace-pre-line">
               {ch.body}
             </div>
           </motion.div>
@@ -42,12 +42,12 @@ export function ResearcherPanel({ active }: { active: boolean }) {
               initial={{ opacity: 0 }}
               animate={active ? { opacity: 1 } : {}}
               transition={{ delay: 0.4 }}
-              className="bg-bg-surface border border-green-terminal/20 rounded-lg p-5"
+              className="bg-bg-surface border border-green-terminal/30 rounded-lg p-5"
             >
               <div className="font-mono text-[10px] text-green-terminal tracking-wider mb-2">
                 PUBLICATION
               </div>
-              <h3 className="font-mono text-sm text-text-cream font-medium">
+              <h3 className="font-mono text-sm text-text-primary font-medium">
                 &quot;The Fact Graph: A Unified Ontological Representation for
                 Multi-Modal Clinical Intelligence&quot;
               </h3>
@@ -75,15 +75,15 @@ export function ResearcherPanel({ active }: { active: boolean }) {
               initial={{ opacity: 0 }}
               animate={active ? { opacity: 1 } : {}}
               transition={{ delay: 0.8 }}
-              className="bg-bg-deep border border-border-subtle rounded-lg p-5 font-mono"
+              className="bg-bg-code border border-border-subtle rounded-lg p-5 font-mono"
             >
               <div className="text-[10px] text-text-dim tracking-wider mb-3">
                 CURRENT DIRECTION
               </div>
               <div className="text-green-terminal text-[11px] leading-relaxed space-y-1">
-                <div className="text-text-dim">$ cat direction.txt</div>
+                <div className="text-text-muted">$ cat direction.txt</div>
                 {currentDirection.map((item, i) => (
-                  <div key={i} className="text-text-cream">
+                  <div key={i} className="text-text-primary">
                     &gt; {item}
                   </div>
                 ))}

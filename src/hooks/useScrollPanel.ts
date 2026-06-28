@@ -1,78 +1,85 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 export function useScrollPanel(totalPanels: number) {
   const [activePanel, setActivePanel] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  // Desktop: horizontal scroll tracking (rAF debounced)
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || isMobile) return;
+    if (!container || !isDesktop) return;
 
+    let raf = 0;
     const handleScroll = () => {
-      const scrollLeft = container.scrollLeft;
-      const panelWidth = container.clientWidth;
-      const panel = Math.round(scrollLeft / panelWidth);
-      setActivePanel(Math.min(panel, totalPanels - 1));
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const panel = Math.round(container.scrollLeft / container.clientWidth);
+        setActivePanel(panel);
+      });
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, [totalPanels, isMobile]);
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [totalPanels, isDesktop]);
 
-  // Mobile: use IntersectionObserver to track active panel
+  // Mobile: rAF-debounced IntersectionObserver
   useEffect(() => {
-    if (!isMobile) return;
+    if (isDesktop) return;
+
+    let raf = 0;
+    const activeRef = { current: 0 };
 
     const observers: IntersectionObserver[] = [];
-    const handleIntersect = (index: number) => (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActivePanel(index);
-        }
-      });
-    };
-
     for (let i = 0; i < totalPanels; i++) {
       const el = document.getElementById(`panel-${i}`);
       if (!el) continue;
-      const observer = new IntersectionObserver(handleIntersect(i), {
-        root: null,
-        threshold: 0.5,
-      });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+              activeRef.current = i;
+              cancelAnimationFrame(raf);
+              raf = requestAnimationFrame(() => setActivePanel(activeRef.current));
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
       observer.observe(el);
       observers.push(observer);
     }
-
     return () => {
-      observers.forEach((obs) => obs.disconnect());
+      observers.forEach((o) => o.disconnect());
+      cancelAnimationFrame(raf);
     };
-  }, [isMobile, totalPanels]);
+  }, [isDesktop, totalPanels]);
 
   const scrollTo = useCallback(
     (index: number) => {
-      const container = containerRef.current;
-      if (!container) return;
-      if (isMobile) {
-        document.getElementById(`panel-${index}`)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        container.scrollTo({
-          left: index * container.clientWidth,
+      if (isDesktop) {
+        containerRef.current?.scrollTo({
+          left: index * (containerRef.current?.clientWidth ?? window.innerWidth),
           behavior: "smooth",
         });
+      } else {
+        document.getElementById(`panel-${index}`)?.scrollIntoView({ behavior: "smooth" });
       }
     },
-    [isMobile]
+    [isDesktop]
   );
 
-  return { activePanel, containerRef, scrollTo, isMobile };
+  return { activePanel, containerRef, scrollTo, isDesktop };
 }

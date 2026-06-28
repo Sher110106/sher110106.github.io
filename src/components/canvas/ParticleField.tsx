@@ -14,8 +14,8 @@ interface Particle {
 const CONNECTION_DISTANCE = 100;
 
 function getParticleCount() {
-  if (typeof window === "undefined") return 180;
-  return window.innerWidth < 768 ? 60 : 180;
+  if (typeof window === "undefined") return 120;
+  return window.innerWidth < 768 ? 40 : 120;
 }
 
 export function ParticleField() {
@@ -23,7 +23,7 @@ export function ParticleField() {
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const animRef = useRef<number>(0);
-  const countRef = useRef<number>(180);
+  const countRef = useRef<number>(120);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -40,13 +40,13 @@ export function ParticleField() {
 
     const initParticles = () => {
       const particles: Particle[] = [];
-      const colors = ["#F59E0B", "#EF4444", "#F5F0E8", "#A8A29E", "#A78BFA"];
+      const colors = ["#D97706", "#A8A29E", "#78716C", "#7C3AED", "#DC2626"];
       for (let i = 0; i < countRef.current; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
           radius: Math.random() * 1.5 + 0.5,
           color: colors[Math.floor(Math.random() * colors.length)],
         });
@@ -83,9 +83,9 @@ export function ParticleField() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.globalAlpha = 0.85;
+        ctx.globalAlpha = 0.6;
         ctx.shadowColor = p.color;
-        ctx.shadowBlur = 6;
+        ctx.shadowBlur = 4;
         ctx.fill();
         ctx.shadowBlur = 0;
 
@@ -99,7 +99,7 @@ export function ParticleField() {
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
             ctx.strokeStyle = p.color;
-            ctx.globalAlpha = 0.15 * (1 - dist / CONNECTION_DISTANCE);
+            ctx.globalAlpha = 0.08 * (1 - dist / CONNECTION_DISTANCE);
             ctx.stroke();
           }
         }

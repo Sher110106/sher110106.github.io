@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Manrope, Recursive } from "next/font/google";
 import "./globals.css";
 
-const jetbrains = JetBrains_Mono({
+const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-sans",
+});
+
+const recursive = Recursive({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-mono",
 });
 
@@ -20,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={jetbrains.variable}>
+    <html lang="en" className={`${manrope.variable} ${recursive.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   );

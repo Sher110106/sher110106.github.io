@@ -6,6 +6,7 @@ export interface Project {
   stack: string[];
   period: string;
   spriteName: "fact_graph" | "agent" | "neuron" | "book" | "data";
+  writeupSlug?: string;
 }
 
 export interface Experience {
@@ -91,13 +92,14 @@ export const chapters: ChapterContent[] = [
 export const projects: Project[] = [
   {
     id: "fact-graph",
-    title: "The Fact Graph",
-    subtitle: "Longitudinal Clinical Intelligence",
+    title: "Finding Frame",
+    subtitle: "Evidence-anchored longitudinal clinical tracking from radiology reports",
     description:
-      "A healthcare AI research system designed to track clinical findings across time using LLM-based paired-report reasoning and ontological fact graphs. Instead of reading radiology reports independently, the system connects findings longitudinally—tracking progression, stability, worsening, and resolution across months of patient history. Accepted at IntelliSys 2026 under the Large Language Models for Healthcare track.",
-    stack: ["LLMs", "Clinical NLP", "Temporal Reasoning", "Healthcare AI", "Knowledge Graphs"],
+      "A structured pipeline that tracks clinical findings across time using LLM extraction with a mandatory evidence gate and deterministic linking. Instead of reading reports independently, Finding Frame connects findings longitudinally — tracking progression, stability, and resolution across months of patient history. Accepted at IntelliSys 2026.",
+    stack: ["LLMs", "Clinical NLP", "Temporal Reasoning", "Healthcare AI", "Knowledge Graphs", "Evidence Gating"],
     period: "Spring 2026",
     spriteName: "fact_graph",
+    writeupSlug: "finding-frame",
   },
   {
     id: "bugzer",
@@ -108,6 +110,7 @@ export const projects: Project[] = [
     stack: ["Multi-Agent AI", "Docker", "GCP", "Browser Automation", "Distributed Systems"],
     period: "Jan 2025 — Present",
     spriteName: "agent",
+    writeupSlug: "multi-agent-debugging",
   },
   {
     id: "radiology",
@@ -118,6 +121,7 @@ export const projects: Project[] = [
     stack: ["Clinical Intelligence", "Temporal NLP", "Oncology AI", "Medical LLMs"],
     period: "Spring 2026",
     spriteName: "neuron",
+    writeupSlug: "temporal-medical-reasoning",
   },
   {
     id: "curriculum",
@@ -128,6 +132,7 @@ export const projects: Project[] = [
     stack: ["React", "Tesseract.js", "Azure OpenAI", "Embeddings"],
     period: "Summer 2025",
     spriteName: "book",
+    writeupSlug: "curriculum-gap-analyzer",
   },
   {
     id: "streamlit",
@@ -138,6 +143,7 @@ export const projects: Project[] = [
     stack: ["Python", "Streamlit", "Data Analysis", "ML"],
     period: "Summer 2025",
     spriteName: "data",
+    writeupSlug: "autonomous-data-narrator",
   },
 ];
 

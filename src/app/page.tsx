@@ -1,6 +1,5 @@
 "use client";
 
-import { ParticleField } from "@/components/canvas/ParticleField";
 import { HeroPanel } from "@/components/panels/HeroPanel";
 import { ObserverPanel } from "@/components/panels/ObserverPanel";
 import { BuilderPanel } from "@/components/panels/BuilderPanel";
@@ -13,7 +12,7 @@ import { useScrollPanel } from "@/hooks/useScrollPanel";
 const chapterLabels = ["hero", "observer", "builder", "researcher", "leader", "future"];
 
 export default function Home() {
-  const { activePanel, containerRef, scrollTo, isMobile } = useScrollPanel(6);
+  const { activePanel, containerRef, scrollTo, isDesktop } = useScrollPanel(6);
 
   const panels = [
     <HeroPanel key="hero" />,
@@ -25,28 +24,23 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative">
-      <ParticleField />
-
-      {isMobile ? (
-        <div className="relative z-10">
+    <main>
+      {isDesktop ? (
+        <div
+          ref={containerRef}
+          className="flex overflow-x-auto snap-x snap-mandatory h-screen scroll-smooth"
+          style={{ willChange: "scroll-position", transform: "translateZ(0)" }}
+        >
           {panels.map((panel, i) => (
-            <div key={i} id={`panel-${i}`}>
+            <div key={i} id={`panel-${i}`} className="snap-start min-w-[100vw] h-screen overflow-hidden">
               {panel}
             </div>
           ))}
         </div>
       ) : (
-        <div
-          ref={containerRef}
-          className="relative z-10 flex overflow-x-scroll snap-x snap-mandatory h-screen"
-        >
+        <div>
           {panels.map((panel, i) => (
-            <div
-              key={i}
-              id={`panel-${i}`}
-              className="snap-start min-w-[100vw] h-screen"
-            >
+            <div key={i} id={`panel-${i}`}>
               {panel}
             </div>
           ))}

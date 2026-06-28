@@ -40,8 +40,8 @@ export function TerminalBlock({ command, content, trigger }: TerminalBlockProps)
   }, [content, trigger]);
 
   return (
-    <div className="bg-bg-deep border border-border-subtle rounded-lg p-4 font-mono text-[11px] leading-relaxed">
-      {command && <div className="text-text-dim mb-2">{command}</div>}
+    <div className="bg-bg-code border border-border-subtle rounded-lg p-4 font-mono text-[11px] leading-relaxed">
+      {command && <div className="text-text-muted mb-2">{command}</div>}
       <div className="text-green-terminal whitespace-pre">
         {lines.join("\n")}
         {!done && <span className="text-accent-amber animate-pulse">█</span>}

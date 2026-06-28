@@ -9,7 +9,7 @@ export function FuturePanel({ active }: { active: boolean }) {
   const ch = chapters[4];
 
   return (
-    <div className="min-h-screen w-full flex items-start md:items-center relative overflow-visible md:overflow-hidden md:min-w-[100vw] md:w-screen md:h-screen py-8 md:py-0">
+    <div className="min-h-screen w-full flex items-start lg:items-center relative py-8 lg:py-0 lg:min-w-[100vw] lg:w-screen lg:h-screen lg:overflow-hidden">
       <div className="z-10 px-4 sm:px-8 md:px-16 max-w-6xl mx-auto w-full">
         <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-start">
           <motion.div
@@ -27,7 +27,7 @@ export function FuturePanel({ active }: { active: boolean }) {
             <h2 className="font-mono font-light text-3xl sm:text-4xl md:text-6xl tracking-tight text-accent-amber mb-4 md:mb-6">
               {ch.title}
             </h2>
-            <div className="font-mono text-[11px] sm:text-[13px] text-text-muted leading-relaxed whitespace-pre-line">
+            <div className="font-sans text-[13px] sm:text-[15px] text-text-muted leading-relaxed whitespace-pre-line">
               {ch.body}
             </div>
           </motion.div>
@@ -47,7 +47,7 @@ export function FuturePanel({ active }: { active: boolean }) {
               <h2 className="font-mono font-light text-3xl md:text-4xl tracking-tight text-accent-amber mb-3">
                 LET&apos;S_BUILD
               </h2>
-              <div className="font-mono text-lg text-text-cream">
+              <div className="font-mono text-lg text-text-primary">
                 THE NEXT INTELLIGENT_SYSTEM
               </div>
             </motion.div>
@@ -61,9 +61,9 @@ export function FuturePanel({ active }: { active: boolean }) {
               <div className="text-[10px] text-text-dim tracking-wider mb-2">
                 CONTACT
               </div>
-              <div className="text-[11px] text-text-dim">{contact.current}</div>
-              <div className="text-[11px] text-text-dim">{contact.incoming}</div>
-              <div className="text-sm text-text-cream">
+              <div className="text-[11px] text-text-muted">{contact.current}</div>
+              <div className="text-[11px] text-text-muted">{contact.incoming}</div>
+              <div className="text-sm text-text-primary">
                 <a
                   href={`mailto:${contact.email}`}
                   className="text-accent-amber hover:underline transition-colors"

@@ -9,7 +9,7 @@ export function BuilderPanel({ active }: { active: boolean }) {
   const ch = chapters[1];
 
   return (
-    <div className="min-h-screen w-full flex items-start md:items-center relative overflow-visible md:overflow-hidden md:min-w-[100vw] md:w-screen md:h-screen py-8 md:py-0">
+    <div className="min-h-screen w-full flex items-start lg:items-center relative py-8 lg:py-0 lg:min-w-[100vw] lg:w-screen lg:h-screen lg:overflow-hidden">
       <div className="z-10 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto w-full">
         <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-8 items-start">
           <motion.div
@@ -28,7 +28,7 @@ export function BuilderPanel({ active }: { active: boolean }) {
             <h2 className="font-mono font-light text-3xl sm:text-4xl md:text-5xl tracking-tight text-accent-amber mb-4 md:mb-6">
               {ch.title}
             </h2>
-            <div className="font-mono text-[11px] sm:text-[13px] text-text-muted leading-relaxed whitespace-pre-line">
+            <div className="font-sans text-[13px] sm:text-[15px] text-text-muted leading-relaxed whitespace-pre-line">
               {ch.body}
             </div>
           </motion.div>

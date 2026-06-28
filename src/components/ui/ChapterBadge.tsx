@@ -32,7 +32,7 @@ export function ChapterBadge({ number, subtitle, trigger }: ChapterBadgeProps) {
       transition={{ duration: 0.4 }}
       className="inline-block"
     >
-      <div className="border border-accent-amber/40 rounded px-3 py-2 bg-bg-deep/50 backdrop-blur-sm">
+      <div className="border border-accent-amber/30 rounded px-3 py-2 bg-bg-surface/80">
         <div className="font-mono text-[10px] sm:text-xs tracking-[0.15em] text-accent-amber font-medium text-center">
           CHAPTER_{chapterNum}
         </div>
