@@ -48,11 +48,27 @@ export function ResearcherPanel({ active }: { active: boolean }) {
                 PUBLICATION
               </div>
               <h3 className="font-mono text-sm text-text-primary font-medium">
-                &quot;The Fact Graph: A Unified Ontological Representation for
-                Multi-Modal Clinical Intelligence&quot;
+                The Fact Graph: A Unified Ontological Representation for Multi-Modal Clinical Intelligence
               </h3>
               <div className="font-mono text-[11px] text-green-terminal/70 mt-2">
                 IntelliSys 2026 · Large Language Models for Healthcare
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={active ? { opacity: 1 } : {}}
+              transition={{ delay: 0.5 }}
+              className="bg-bg-surface border border-green-terminal/30 rounded-lg p-5"
+            >
+              <div className="font-mono text-[10px] text-green-terminal tracking-wider mb-2">
+                ACCEPTED POSTER · NON-ARCHIVAL
+              </div>
+              <h3 className="font-mono text-sm text-text-primary font-medium">
+                SAC&apos;s Entropy Coefficient as an Implicit Success Signal in Robotic Manipulation
+              </h3>
+              <div className="font-mono text-[11px] text-green-terminal/70 mt-2">
+                CAISc 2026 · Sole author · 128 training runs
               </div>
             </motion.div>
 

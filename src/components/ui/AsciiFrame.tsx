@@ -24,12 +24,8 @@ export function AsciiFrame({ style, title, subtitle, trigger }: AsciiFrameProps)
   const b = borders[style];
 
   useEffect(() => {
-    if (trigger) {
-      const t = setTimeout(() => setVisible(true), 200);
-      return () => clearTimeout(t);
-    } else {
-      setVisible(false);
-    }
+    const timer = setTimeout(() => setVisible(trigger), trigger ? 200 : 0);
+    return () => clearTimeout(timer);
   }, [trigger]);
 
   if (!visible) return null;

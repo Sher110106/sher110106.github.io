@@ -15,9 +15,24 @@ const recursive = Recursive({
 });
 
 export const metadata: Metadata = {
-  title: "Sher Partap Singh — CS & AI Portfolio",
+  metadataBase: new URL("https://sher110106.github.io"),
+  title: "Sher Partap Singh | AI Researcher-Engineer",
   description:
-    "AI researcher-engineer building intelligent systems for real-world impact. Healthcare AI, Multi-Agent Systems, Longitudinal Intelligence.",
+    "AI researcher-engineer working on trustworthy AI, clinical NLP, LLM evaluation, reinforcement-learning diagnostics, and agent systems.",
+  openGraph: {
+    title: "Sher Partap Singh | AI Researcher-Engineer",
+    description: "Research and systems in trustworthy AI, clinical NLP, LLM evaluation, reinforcement learning, and agents.",
+    url: "https://sher110106.github.io",
+    siteName: "Sher Partap Singh",
+    images: [{ url: "/portrait.png", width: 1200, height: 1200, alt: "Sher Partap Singh" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Sher Partap Singh | AI Researcher-Engineer",
+    description: "Research and systems in trustworthy AI, clinical NLP, LLM evaluation, reinforcement learning, and agents.",
+    images: ["/portrait.png"],
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +42,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${manrope.variable} ${recursive.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <a href="#main-content" className="skip-link">Skip to content</a>
+        {children}
+      </body>
     </html>
   );
 }

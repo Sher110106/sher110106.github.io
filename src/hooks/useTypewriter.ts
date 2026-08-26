@@ -12,22 +12,25 @@ export function useTypewriter(text: string, speed = 60, startDelay = 300) {
   }, []);
 
   useEffect(() => {
-    setDisplayed("");
-    setDone(false);
+    let interval: ReturnType<typeof setInterval> | undefined;
     const delayTimer = setTimeout(() => {
+      setDisplayed("");
+      setDone(false);
       let i = 0;
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setDisplayed(text.slice(0, i + 1));
         i++;
         if (i >= text.length) {
-          clearInterval(interval);
+          if (interval) clearInterval(interval);
           setDone(true);
         }
       }, speed);
-      return () => clearInterval(interval);
     }, startDelay);
 
-    return () => clearTimeout(delayTimer);
+    return () => {
+      clearTimeout(delayTimer);
+      if (interval) clearInterval(interval);
+    };
   }, [text, speed, startDelay]);
 
   return { displayed, done, reset };

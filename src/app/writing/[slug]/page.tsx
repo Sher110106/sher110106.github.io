@@ -1,6 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { projects } from "@/data/content";
+import { essays } from "@/data/essays";
 import { writeups, type WriteupSection } from "@/data/writeups";
 import { PipelineDiagram } from "@/components/writing/PipelineDiagram";
 import { SchemaCard } from "@/components/writing/SchemaCard";
@@ -15,6 +18,16 @@ export function generateStaticParams() {
   return projects
     .filter((p) => p.writeupSlug)
     .map((p) => ({ slug: p.writeupSlug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const essay = essays.find((candidate) => candidate.slug === slug);
+  if (!essay) return {};
+  return {
+    title: `${essay.title} | Sher Partap Singh`,
+    description: essay.summary,
+  };
 }
 
 function renderSection(section: WriteupSection, i: number) {
@@ -52,7 +65,7 @@ function renderSection(section: WriteupSection, i: number) {
     case "list":
       return (
         <ul key={i} className="space-y-3 my-6">
-          {(section as any).items.map((item: string, j: number) => (
+          {section.items.map((item, j) => (
             <li key={j} className="font-sans text-[15px] text-text-muted leading-relaxed pl-6 relative">
               <span className="absolute left-0 top-0 text-accent-amber">—</span>
               {item}
@@ -61,21 +74,21 @@ function renderSection(section: WriteupSection, i: number) {
         </ul>
       );
     case "pipeline":
-      return <PipelineDiagram key={i} title={(section as any).title} stages={(section as any).stages} />;
+      return <PipelineDiagram key={i} title={section.title} stages={section.stages} />;
     case "schema":
-      return <SchemaCard key={i} title={(section as any).title} fields={(section as any).fields} />;
+      return <SchemaCard key={i} title={section.title} fields={section.fields} />;
     case "table":
       return (
         <DataTable
           key={i}
-          title={(section as any).title}
-          columns={(section as any).columns}
-          rows={(section as any).rows}
-          caption={(section as any).caption}
+          title={section.title}
+          columns={section.columns}
+          rows={section.rows}
+          caption={section.caption}
         />
       );
     case "trace":
-      return <TraceBlock key={i} title={(section as any).title} lines={(section as any).lines} />;
+      return <TraceBlock key={i} title={section.title} lines={section.lines} />;
     default:
       return null;
   }
@@ -88,50 +101,45 @@ export default async function WritingPage({ params }: PageProps) {
   if (!project) notFound();
 
   const writeup = writeups[slug];
+  const essay = essays.find((candidate) => candidate.slug === slug);
+  if (!writeup) notFound();
 
   return (
-    <main className="max-w-2xl mx-auto py-32 px-8">
+    <main id="main-content" className="max-w-3xl mx-auto py-32 px-6 sm:px-8">
       <article>
         <header className="mb-12">
           <div className="flex items-center gap-3 mb-4">
             <span className="font-mono text-[10px] text-accent-amber tracking-wider uppercase">
-              Build Log
+              {essay?.type.replace("-", " ") ?? "Field note"}
             </span>
             <span className="text-border-subtle">·</span>
             <span className="font-mono text-[10px] text-text-dim">{project.period}</span>
           </div>
-          <h1 className="font-mono text-3xl md:text-4xl font-light tracking-tight text-text-primary mb-4">
-            {project.title}
+          <h1 className="font-sans text-4xl md:text-6xl font-medium tracking-[-0.045em] leading-[1.02] text-text-primary mb-5 text-balance">
+            {essay?.title ?? project.title}
           </h1>
-          <p className="font-sans text-lg text-text-muted font-light leading-relaxed">
-            {project.subtitle}
+          <p className="font-sans text-lg text-text-muted font-light leading-relaxed text-pretty">
+            {essay?.summary ?? project.subtitle}
           </p>
+          <div className="mt-5 font-mono text-[10px] text-text-dim">
+            {project.title} · {project.status}
+          </div>
         </header>
 
-        {writeup ? (
-          <div className="font-sans text-[15px] text-text-muted leading-[1.8]">
-            {writeup.sections.map((section, i) => renderSection(section, i))}
-          </div>
-        ) : (
-          <div className="font-sans text-[15px] text-text-muted leading-[1.8] space-y-6">
-            <p>{project.description}</p>
-            <div className="my-10 p-6 bg-bg-surface border border-border-subtle rounded-lg">
-              <div className="font-mono text-[10px] text-text-dim tracking-wider mb-3 uppercase">
-                Build Notes
-              </div>
-              <div className="font-sans text-sm text-text-muted leading-relaxed">
-                <p>This field note is being drafted. Once complete, it will include:</p>
-                <ul className="mt-3 space-y-1.5 list-disc pl-5">
-                  <li>The problem that started this project</li>
-                  <li>What made the hard part genuinely hard</li>
-                  <li>System architecture and design decisions</li>
-                  <li>What broke, what changed, and what worked</li>
-                  <li>Diagrams, traces, and artifacts from the build</li>
-                </ul>
-              </div>
+        {project.image && (
+          <figure className="mb-12">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-lg border border-border-subtle bg-bg-code">
+              <Image src={project.image} alt={`Editorial system illustration for ${project.title}`} fill sizes="(max-width: 768px) 100vw, 768px" className="object-cover" priority />
             </div>
-          </div>
+            <figcaption className="font-mono text-[9px] text-text-dim mt-2">
+              Generated editorial system plate for this project.
+            </figcaption>
+          </figure>
         )}
+
+        <div className="font-sans text-[15px] text-text-muted leading-[1.8]">
+          {writeup.sections.map((section, i) => renderSection(section, i))}
+        </div>
 
         <div className="my-10 pt-8 border-t border-border-subtle">
           <div className="font-mono text-[10px] text-text-dim tracking-wider mb-3 uppercase">
@@ -147,6 +155,11 @@ export default async function WritingPage({ params }: PageProps) {
               </span>
             ))}
           </div>
+          {project.externalUrl && (
+            <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-5 font-mono text-xs text-accent-amber hover:underline underline-offset-2">
+              Open project source ↗
+            </a>
+          )}
         </div>
       </article>
 

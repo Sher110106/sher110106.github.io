@@ -14,29 +14,35 @@ export function TerminalBlock({ command, content, trigger }: TerminalBlockProps)
 
   useEffect(() => {
     if (!trigger) return;
-    setLines([]);
-    setDone(false);
     const allLines = content.split("\n");
     let lineIndex = 0;
     let charIndex = 0;
     const out: string[] = [];
+    let interval: ReturnType<typeof setInterval> | undefined;
 
-    const interval = setInterval(() => {
-      if (lineIndex >= allLines.length) {
-        setDone(true);
-        clearInterval(interval);
-        return;
-      }
-      charIndex++;
-      out[lineIndex] = allLines[lineIndex].slice(0, charIndex);
-      if (charIndex >= allLines[lineIndex].length) {
-        lineIndex++;
-        charIndex = 0;
-      }
-      setLines([...out]);
-    }, 15);
+    const startTimer = setTimeout(() => {
+      setLines([]);
+      setDone(false);
+      interval = setInterval(() => {
+        if (lineIndex >= allLines.length) {
+          setDone(true);
+          if (interval) clearInterval(interval);
+          return;
+        }
+        charIndex++;
+        out[lineIndex] = allLines[lineIndex].slice(0, charIndex);
+        if (charIndex >= allLines[lineIndex].length) {
+          lineIndex++;
+          charIndex = 0;
+        }
+        setLines([...out]);
+      }, 15);
+    }, 0);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(startTimer);
+      if (interval) clearInterval(interval);
+    };
   }, [content, trigger]);
 
   return (

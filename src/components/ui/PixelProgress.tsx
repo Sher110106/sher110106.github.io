@@ -9,12 +9,15 @@ interface PixelProgressProps {
 
 export function PixelProgress({ total, active, labels, onSelect }: PixelProgressProps) {
   return (
-    <div className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-50 font-mono">
+    <nav aria-label="Portfolio chapters" className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-50 font-mono">
       <div className="flex items-center gap-1.5 md:gap-2 bg-bg-surface/90 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-border-subtle">
         {Array.from({ length: total }).map((_, i) => (
           <div key={i} className="flex items-center gap-1 md:gap-2">
             <button
+              type="button"
               onClick={() => onSelect(i)}
+              aria-label={`Go to ${labels[i] ?? `chapter ${i}`}`}
+              aria-current={i === active ? "step" : undefined}
               className={`text-xs md:text-sm transition-colors duration-300 cursor-pointer hover:text-accent-amber ${
                 i === active ? "text-accent-amber" : "text-text-dim"
               }`}
@@ -28,6 +31,6 @@ export function PixelProgress({ total, active, labels, onSelect }: PixelProgress
       <div className="text-[8px] md:text-[9px] text-text-dim text-center mt-1">
         [{active}/{total - 1}] {labels[active] || ""}
       </div>
-    </div>
+    </nav>
   );
 }

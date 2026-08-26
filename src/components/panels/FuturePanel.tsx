@@ -89,6 +89,14 @@ export function FuturePanel({ active }: { active: boolean }) {
                 >
                   GitHub
                 </a>
+                <a
+                  href={contact.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] text-accent-amber/70 hover:text-accent-amber transition-colors"
+                >
+                  Résumé PDF
+                </a>
               </div>
             </motion.div>
 

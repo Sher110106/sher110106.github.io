@@ -24,15 +24,15 @@ export default function Home() {
   ];
 
   return (
-    <main>
+    <main id="main-content">
       {isDesktop ? (
         <div
           ref={containerRef}
-          className="flex overflow-x-auto snap-x snap-mandatory h-screen scroll-smooth"
+          className="flex overflow-x-auto snap-x snap-mandatory h-dvh scroll-smooth"
           style={{ willChange: "scroll-position", transform: "translateZ(0)" }}
         >
           {panels.map((panel, i) => (
-            <div key={i} id={`panel-${i}`} className="snap-start min-w-[100vw] h-screen overflow-hidden">
+            <div key={i} id={`panel-${i}`} className="snap-start min-w-[100vw] h-dvh overflow-hidden">
               {panel}
             </div>
           ))}

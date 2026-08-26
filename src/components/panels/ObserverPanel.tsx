@@ -35,7 +35,7 @@ export function ObserverPanel({ active }: { active: boolean }) {
             initial={{ opacity: 0, x: 30 }}
             animate={active ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-3 md:space-y-4"
+            className="space-y-3 md:max-h-[78vh] md:overflow-y-auto md:pr-2"
           >
             {experiences.map((exp, i) => (
               <motion.div
