@@ -35,7 +35,8 @@ export function useScrollPanel(totalPanels: number) {
     };
   }, [totalPanels, isDesktop]);
 
-  // Mobile: rAF-debounced IntersectionObserver
+  // Mobile: track the panel crossing the center of the viewport. A ratio-based
+  // threshold cannot fire for panels that are several viewports tall.
   useEffect(() => {
     if (isDesktop) return;
 
@@ -49,14 +50,14 @@ export function useScrollPanel(totalPanels: number) {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+            if (entry.isIntersecting) {
               activeRef.current = i;
               cancelAnimationFrame(raf);
               raf = requestAnimationFrame(() => setActivePanel(activeRef.current));
             }
           });
         },
-        { threshold: 0.4 }
+        { threshold: 0, rootMargin: "-45% 0px -45% 0px" }
       );
       observer.observe(el);
       observers.push(observer);
