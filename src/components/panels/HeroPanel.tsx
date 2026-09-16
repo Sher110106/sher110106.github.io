@@ -84,7 +84,7 @@ export function HeroPanel() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4, duration: 0.6 }}
-          className="mt-10 text-[10px] text-text-dim font-mono"
+          className="mt-10 text-[10px] text-text-dim font-mono hidden lg:block"
         >
           Scroll horizontally or use the chapter index below
         </motion.p>

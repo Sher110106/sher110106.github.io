@@ -20,12 +20,6 @@ export interface Experience {
   period: string;
 }
 
-export interface Stat {
-  value: number;
-  suffix: string;
-  label: string;
-}
-
 export interface ChapterContent {
   id: string;
   number: number;
@@ -76,19 +70,11 @@ export const chapters: ChapterContent[] = [
     asciiStyle: "box",
   },
   {
-    id: "leader",
-    number: 4,
-    title: "THE LEADER",
-    subtitle: "chapter_04.md",
-    body: "I care about the institutions around technical systems, not only the systems themselves.\n\nAt Plaksha, I contribute to student discussions on responsible AI adoption. I have mentored more than 80 high-school students, led community fundraising through Wings of Fire, and worked across research, teaching, and industry teams.\n\nGood technology needs clear explanations, accountable deployment, and people willing to question its limits.",
-    asciiStyle: "heavy",
-  },
-  {
     id: "future",
-    number: 5,
+    number: 4,
     title: "THE FUTURE",
-    subtitle: "chapter_05.sh",
-    body: "I am looking for research collaborations and graduate opportunities around trustworthy AI, evaluations, agent safety, and robustness.\n\nThe common thread is simple: build systems whose claims can be checked, whose failures can be understood, and whose behaviour remains legible to the people relying on them.",
+    subtitle: "chapter_04.sh",
+    body: "I am looking for research collaborations and graduate opportunities around trustworthy AI, evaluations, agent safety, and robustness.\n\nThe common thread is simple: build systems whose claims can be checked, whose failures can be understood, and whose behaviour remains legible to the people relying on them.\n\nAlongside the research: I sit on Plaksha University's AI Committee, and in 2023 was a top-500-of-14,000 finalist in the Rise for the World competition.",
     asciiStyle: "dashed",
   },
 ];
@@ -251,13 +237,6 @@ export const experiences: Experience[] = [
   },
 ];
 
-export const stats: Stat[] = [
-  { value: 80, suffix: "+", label: "Students Mentored" },
-  { value: 2, suffix: "", label: "Accepted Research Outputs" },
-  { value: 8, suffix: "", label: "Selected Projects & Studies" },
-  { value: 500, suffix: " / 14K", label: "Rise for the World Finalist" },
-];
-
 export const researchAreas = [
   "Trustworthy AI",
   "LLM Evaluation",
@@ -273,21 +252,6 @@ export const currentDirection = [
   "diagnostics for agent and learning-system failures",
   "auditable AI for safety-critical domains",
   "evaluation infrastructure for responsible deployment",
-];
-
-export const leadershipItems = [
-  {
-    title: "AI Committee Member",
-    org: "Plaksha University",
-    description:
-      "Contributing to institutional discussions on responsible AI adoption, governance, and ethical deployment frameworks.",
-  },
-  {
-    title: "Founder",
-    org: "Wings of Fire Club",
-    description:
-      "Led charitable initiatives and student-driven fundraising campaigns focused on community impact.",
-  },
 ];
 
 export const contact = {

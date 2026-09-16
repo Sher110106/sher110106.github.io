@@ -6,7 +6,7 @@ import { TagChip } from "@/components/ui/TagChip";
 import { chapters, contact, techStack } from "@/data/content";
 
 export function FuturePanel({ active }: { active: boolean }) {
-  const ch = chapters[4];
+  const ch = chapters[3];
 
   return (
     <div className="min-h-screen w-full flex items-start lg:items-center relative py-8 lg:py-0 lg:min-w-[100vw] lg:w-screen lg:h-screen lg:overflow-hidden">
