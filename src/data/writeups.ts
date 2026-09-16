@@ -253,6 +253,32 @@ export const writeups: Record<string, WriteupContent> = {
       },
       {
         type: "subheading",
+        content: "Paired-report reasoning",
+      },
+      {
+        type: "text",
+        content:
+          "Finding Frame grew out of a narrower question first: what changed between two reports? Radiology language is full of references that only make sense over time — an opacity is 'improved,' a lesion is 'unchanged,' a finding is 'no longer seen.' Those phrases describe a relationship between two observations, not a property of one report, so the earliest version of the system treated a pair of reports, not a single one, as the unit of reasoning.",
+      },
+      {
+        type: "pipeline",
+        title: "Paired-Report Reasoning Flow",
+        stages: [
+          { label: "Earlier report", sublabel: "baseline finding" },
+          { label: "Later report", sublabel: "new observation" },
+          { label: "Pair", sublabel: "align context" },
+          { label: "Extract", sublabel: "finding + evidence" },
+          { label: "Compare", sublabel: "temporal change" },
+          { label: "Track", sublabel: "clinical timeline" },
+        ],
+      },
+      {
+        type: "text",
+        content:
+          "Treating the pair as the unit of reasoning made the temporal question explicit and gave the model a clear boundary: compare the evidence available in the two reports, not fill in a patient's history from general medical knowledge. That constraint carried over into the six-slot pipeline above, and the RECIST-oriented progression tracking here is what the temporal_change slot is trying to approximate at scale.",
+      },
+      {
+        type: "subheading",
         content: "Cost and latency",
       },
       {
@@ -295,7 +321,6 @@ export const writeups: Record<string, WriteupContent> = {
         items: [
           "Paper: The Fact Graph was accepted at IntelliSys 2026 in the Large Language Models for Healthcare track. FindingFrame is the extended paper in preparation.",
           "Code remains private while clinician review is in progress.",
-          "Related: Longitudinal Radiology Intelligence (paired-report extraction).",
         ],
       },
     ],
@@ -396,104 +421,6 @@ export const writeups: Record<string, WriteupContent> = {
           "Project: Bugzer, an independent multi-agent web QA platform.",
           "Stack: Python, FastAPI, Next.js, Docker, Google Cloud Run, and Steel.dev.",
           "Related: AI-Powered Website Exploration System.",
-        ],
-      },
-    ],
-  },
-  "temporal-medical-reasoning": {
-    slug: "temporal-medical-reasoning",
-    sections: [
-      {
-        type: "heading",
-        content: "The report is only half the story",
-      },
-      {
-        type: "text",
-        content:
-          "Longitudinal Radiology Intelligence grew out of a question that looks small until the reports are placed next to each other: what changed? A single radiology report can describe a finding. Clinical reasoning often depends on comparing that description with the one before it and deciding whether the finding progressed, stayed stable, worsened, or resolved.",
-      },
-      {
-        type: "subheading",
-        content: "The thing that started it",
-      },
-      {
-        type: "text",
-        content:
-          "Radiology language is full of references that only make sense over time. A later report may say that an opacity is improved, a lesion is unchanged, or a finding is no longer seen. Those phrases are not isolated labels. They are statements about the relationship between observations. A system that reads each report independently has to reconstruct that relationship later, often with less context than the reader had at the start.",
-      },
-      {
-        type: "subheading",
-        content: "The awkward part",
-      },
-      {
-        type: "text",
-        content:
-          "The challenge was not only extracting medical entities. It was deciding which parts of two reports should be compared and keeping the comparison tied to the right finding. Language can change between reports, measurements can be expressed differently, and temporal cues can be distributed across a sentence. The system therefore needed a paired view of the reports rather than a collection of disconnected summaries.",
-      },
-      {
-        type: "pipeline",
-        title: "Paired-Report Reasoning Flow",
-        stages: [
-          { label: "Earlier report", sublabel: "baseline finding" },
-          { label: "Later report", sublabel: "new observation" },
-          { label: "Pair", sublabel: "align context" },
-          { label: "Extract", sublabel: "finding + evidence" },
-          { label: "Compare", sublabel: "temporal change" },
-          { label: "Track", sublabel: "clinical timeline" },
-        ],
-      },
-      {
-        type: "subheading",
-        content: "The system shape",
-      },
-      {
-        type: "text",
-        content:
-          "The work focused on paired-report extraction pipelines for longitudinal radiology understanding. The pipeline identifies the findings in each report, associates the relevant evidence, and represents the comparison as a temporal event. For oncology use cases, the reasoning is oriented toward RECIST-style progression tracking, where measurements and response categories matter across visits rather than in one note.",
-      },
-      {
-        type: "schema",
-        title: "A Change Needs More Than a Label",
-        fields: [
-          { name: "finding", type: "entity", values: "lesion, opacity, effusion, mass …", note: "what is being followed" },
-          { name: "evidence", type: "source span", values: "sentence or phrase from the report", note: "why the event exists" },
-          { name: "measurement", type: "numeric", values: "value + unit when available", note: "supports comparison" },
-          { name: "temporal_change", type: "relation", values: "progressed | stable | improved | resolved", note: "describes the transition" },
-        ],
-      },
-      {
-        type: "subheading",
-        content: "What held up",
-      },
-      {
-        type: "text",
-        content:
-          "Treating the pair as the unit of reasoning made the temporal question explicit. It also created a useful boundary for the model: the job is to compare the evidence available in the two reports, not to fill in a patient's history from general medical knowledge. That structure supported the broader fact-graph work on queryable timelines for radiology and oncology intelligence.",
-      },
-      {
-        type: "text",
-        content:
-          "This work was part of my healthcare AI research internship with Prof. Sunita Chauhan at Plaksha University. The project sits alongside the accepted IntelliSys 2026 paper, The Fact Graph, and the extended FindingFrame work on auditable longitudinal extraction.",
-      },
-      {
-        type: "subheading",
-        content: "What I would change",
-      },
-      {
-        type: "text",
-        content:
-          "The next version should make uncertainty and missing comparisons explicit. If a later report refers to a prior study without enough detail to support a precise change, the system should preserve that limitation instead of forcing a category. More clinician-adjudicated evaluation would also make it possible to measure not only extraction quality, but whether the resulting timeline is useful for real review workflows.",
-      },
-      {
-        type: "subheading",
-        content: "Links",
-      },
-      {
-        type: "list",
-        items: [
-          "Related paper: The Fact Graph, accepted at IntelliSys 2026 (Springer SVPROC).",
-          "Related field note: Finding Frame and its evidence-anchored tracking pipeline.",
-          "Focus: paired-report extraction, temporal NLP, oncology AI, and medical LLMs.",
         ],
       },
     ],
@@ -870,7 +797,7 @@ export const writeups: Record<string, WriteupContent> = {
       {
         type: "text",
         content:
-          "The branched design made an important distinction visible: actor-critic reset increased recovery in some cohorts and failed entirely in others. Low reward was not a single failure mode. The alpha trajectory also appeared as a leading indicator of learning success, connecting this study to the separate CAISc analysis of SAC's entropy coefficient.",
+          "The branched design made an important distinction visible: actor-critic reset increased recovery in some cohorts and failed entirely in others. Low reward was not a single failure mode. The alpha trajectory also appeared as a leading indicator of learning success — a lead worth chasing on its own.",
       },
       {
         type: "text",
@@ -879,12 +806,46 @@ export const writeups: Record<string, WriteupContent> = {
       },
       {
         type: "subheading",
+        content: "The entropy-coefficient signal",
+      },
+      {
+        type: "text",
+        content:
+          "Reward is a lagging signal when a run is going wrong — by the time two seeds have visibly different returns, many training steps have already passed. A companion, sole-author study picked up the alpha trajectory the branched analysis had flagged and asked whether it could serve as an early diagnostic on its own. Across 128 runs on five Meta-World manipulation tasks, the shape of alpha separated successful and failed seeds before their reward curves made the difference obvious.",
+      },
+      {
+        type: "table",
+        title: "Reported Alpha Patterns",
+        columns: [
+          { header: "Pattern", key: "pattern" },
+          { header: "Observed range or effect", key: "effect" },
+          { header: "Interpretation", key: "interpretation" },
+        ],
+        rows: [
+          { pattern: "Solved seeds", effect: "alpha 0.02 to 0.25", interpretation: "stable moderate entropy" },
+          { pattern: "Alpha collapse", effect: "alpha approaches 0", interpretation: "premature determinism" },
+          { pattern: "Alpha explosion", effect: "alpha reaches 9+", interpretation: "entropy dominance" },
+          { pattern: "Fixed annealing ablation", effect: "up to 98% lower final return on pick-place", interpretation: "all seeds forced into collapse regime" },
+        ],
+      },
+      {
+        type: "text",
+        content:
+          "A two-sided threshold, 0.005 < alpha < 1.0, classified 23 of 24 seeds correctly on the two hardest tasks, or 96 percent. That is an early-warning diagnostic for the tested setup, not a universal stopping rule — its value is that it uses a signal already produced during training instead of adding a separate reward-engineering objective.",
+      },
+      {
+        type: "subheading",
         content: "What I would change",
       },
       {
         type: "text",
         content:
-          "The next version should test whether the same regimes persist across more tasks, seeds, and replay ratios. It should also make the boundary between an observed recovery pattern and a causal explanation explicit. The paper is out for now after submission to TMLR, so these are directions for strengthening the study rather than claims about an accepted result.",
+          "The next version should test whether the same failure regimes persist across more tasks, seeds, and replay ratios, and make the boundary between an observed recovery pattern and a causal explanation explicit. The paper is out for now after submission to TMLR, so these are directions for strengthening the study rather than claims about an accepted result.",
+      },
+      {
+        type: "text",
+        content:
+          "For the entropy-coefficient signal specifically, the open question is how stable the threshold is across algorithms, task families, and hyperparameter choices, and whether it distinguishes a predictive diagnostic from an intervention that actually improves training — the current result shows alpha can be informative, not that changing it will rescue a run.",
       },
       {
         type: "subheading",
@@ -893,9 +854,8 @@ export const writeups: Record<string, WriteupContent> = {
       {
         type: "list",
         items: [
-          "Paper: Recoverable and Irrecoverable Failure Regimes in SAC at High Replay Ratio.",
-          "Status: submitted to TMLR and out for now, not currently accepted.",
-          "Team: Sher Partap Singh, Mannan Sharma, Mudasir Rasheed, Akshita Shukla, and Aryan Chopra.",
+          "Paper: Recoverable and Irrecoverable Failure Regimes in SAC at High Replay Ratio. Status: submitted to TMLR and out for now, not currently accepted. Team: Sher Partap Singh, Mannan Sharma, Mudasir Rasheed, Akshita Shukla, and Aryan Chopra.",
+          "Paper: SAC's Entropy Coefficient as an Implicit Success Signal in Robotic Manipulation. Status: accepted poster at CAISc 2026, Track 2: Open-Ended Problems; non-archival, sole author.",
         ],
       },
     ],
@@ -997,104 +957,6 @@ export const writeups: Record<string, WriteupContent> = {
           "Paper: TempMSG: Temporal Multilingual Social Graph Learning for Multitask Forecasting.",
           "Status: under review in the SIGKDD 2027 Research Track.",
           "MOSAIC: the earlier multicommunity forecasting project that evolved into TempMSG.",
-        ],
-      },
-    ],
-  },
-  "sac-alpha-signal": {
-    slug: "sac-alpha-signal",
-    sections: [
-      {
-        type: "heading",
-        content: "The entropy coefficient was telling us something",
-      },
-      {
-        type: "text",
-        content:
-          "In Soft Actor-Critic, the entropy coefficient alpha is usually treated as a training control. In this study, I asked whether its trajectory could also serve as a diagnostic. Across 128 runs on five Meta-World manipulation tasks, the shape of alpha separated successful and failed seeds before their reward curves made the difference obvious.",
-      },
-      {
-        type: "subheading",
-        content: "The thing that started it",
-      },
-      {
-        type: "text",
-        content:
-          "Reward is a lagging signal when a run is going wrong. By the time two seeds have visibly different returns, many training steps have already passed. The study logged alpha trajectories alongside Q-values and replay-buffer composition to look for an earlier indicator inside the learner's state.",
-      },
-      {
-        type: "subheading",
-        content: "The awkward part",
-      },
-      {
-        type: "text",
-        content:
-          "A correlation in one task can disappear in another, and an apparent threshold can be an artifact of a particular training setup. The evaluation therefore used multiple Meta-World tasks and a 2 by 2 ablation with 64 runs. The aim was to test whether the alpha signal remained useful under controlled changes, not to claim that alpha alone explains every failure.",
-      },
-      {
-        type: "pipeline",
-        title: "Alpha Diagnostic Flow",
-        stages: [
-          { label: "Train", sublabel: "SAC seed" },
-          { label: "Log", sublabel: "alpha + Q + replay" },
-          { label: "Observe", sublabel: "trajectory regime" },
-          { label: "Compare", sublabel: "success vs failure" },
-          { label: "Ablate", sublabel: "fixed annealing" },
-          { label: "Diagnose", sublabel: "early signal" },
-        ],
-      },
-      {
-        type: "subheading",
-        content: "What the runs showed",
-      },
-      {
-        type: "text",
-        content:
-          "Solved seeds kept alpha in a stable moderate range of 0.02 to 0.25. Failed seeds showed one of two regimes: alpha collapse toward zero, associated with premature determinism, or alpha explosion toward 9 and above, associated with entropy dominance. These regimes predicted seed success or failure hundreds of thousands of steps before reward differences emerged on the hard tasks studied.",
-      },
-      {
-        type: "table",
-        title: "Reported Alpha Patterns",
-        columns: [
-          { header: "Pattern", key: "pattern" },
-          { header: "Observed range or effect", key: "effect" },
-          { header: "Interpretation", key: "interpretation" },
-        ],
-        rows: [
-          { pattern: "Solved seeds", effect: "alpha 0.02 to 0.25", interpretation: "stable moderate entropy" },
-          { pattern: "Alpha collapse", effect: "alpha approaches 0", interpretation: "premature determinism" },
-          { pattern: "Alpha explosion", effect: "alpha reaches 9+", interpretation: "entropy dominance" },
-          { pattern: "Fixed annealing ablation", effect: "up to 98% lower final return on pick-place", interpretation: "all seeds forced into collapse regime" },
-        ],
-      },
-      {
-        type: "subheading",
-        content: "The diagnostic test",
-      },
-      {
-        type: "text",
-        content:
-          "A two-sided threshold, 0.005 < alpha < 1.0, classified 23 of 24 seeds correctly on the two hardest tasks, or 96 percent. I read that as an early-warning diagnostic for the tested setup, not as a universal stopping rule. Its value is that it uses a signal already produced during training instead of adding a separate reward-engineering objective.",
-      },
-      {
-        type: "subheading",
-        content: "What I would change",
-      },
-      {
-        type: "text",
-        content:
-          "The next study should test how stable the threshold is across algorithms, task families, and hyperparameter choices. It should also distinguish a predictive diagnostic from an intervention that improves training. The current result shows that alpha can be informative; it does not by itself establish that changing alpha will rescue a run.",
-      },
-      {
-        type: "subheading",
-        content: "Status and links",
-      },
-      {
-        type: "list",
-        items: [
-          "Paper: SAC's Entropy Coefficient as an Implicit Success Signal in Robotic Manipulation.",
-          "Status: accepted poster at CAISc 2026, Track 2: Open-Ended Problems; non-archival, sole author.",
-          "Related work: Recoverable and Irrecoverable Failure Regimes in SAC at High Replay Ratio.",
         ],
       },
     ],

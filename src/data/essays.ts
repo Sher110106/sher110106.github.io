@@ -16,9 +16,9 @@ export const essays: Essay[] = [
     subtitle: "Teaching a clinical system to remember findings across reports",
     date: "Spring 2026",
     summary:
-      "A field note on evidence-anchored extraction, anatomy normalization, and deterministic tracking for longitudinal radiology intelligence.",
+      "A field note on evidence-anchored extraction, anatomy normalization, paired-report reasoning, and deterministic tracking for longitudinal radiology intelligence.",
     type: "project-essay",
-    tags: ["Clinical NLP", "Longitudinal Reasoning", "Evidence Gating"],
+    tags: ["Clinical NLP", "Longitudinal Reasoning", "Evidence Gating", "Oncology"],
     projectId: "fact-graph",
   },
   {
@@ -31,17 +31,6 @@ export const essays: Essay[] = [
     type: "project-essay",
     tags: ["Multi-Agent Systems", "Browser Automation", "Developer Tools"],
     projectId: "bugzer",
-  },
-  {
-    slug: "temporal-medical-reasoning",
-    title: "The report is only half the story",
-    subtitle: "Reasoning about change across paired radiology reports",
-    date: "Spring 2026",
-    summary:
-      "A field note on paired-report extraction, temporal language, and RECIST-oriented progression tracking in clinical intelligence systems.",
-    type: "research-note",
-    tags: ["Healthcare AI", "Temporal NLP", "Oncology"],
-    projectId: "radiology",
   },
   {
     slug: "curriculum-gap-analyzer",
@@ -79,12 +68,12 @@ export const essays: Essay[] = [
   {
     slug: "sac-failure-regimes",
     title: "When a failed run is not the end",
-    subtitle: "Mapping recoverable and irrecoverable failure regimes in SAC",
+    subtitle: "Mapping recoverable failure regimes and an entropy-coefficient early-warning signal in SAC",
     date: "2026",
     summary:
-      "How branched interventions turn a stalled reinforcement-learning run into a question about recoverability, not just reward.",
+      "How branched interventions turn a stalled reinforcement-learning run into a question about recoverability, not just reward, and how SAC's auto-tuned entropy coefficient can flag the difference before reward does.",
     type: "research-note",
-    tags: ["Reinforcement Learning", "Robustness", "Failure Analysis"],
+    tags: ["Reinforcement Learning", "Robustness", "Failure Analysis", "Diagnostics"],
     projectId: "sac-failure",
   },
   {
@@ -97,17 +86,6 @@ export const essays: Essay[] = [
     type: "research-note",
     tags: ["Temporal Graphs", "Social Computing", "Forecasting"],
     projectId: "tempmsg",
-  },
-  {
-    slug: "sac-alpha-signal",
-    title: "The entropy coefficient was telling us something",
-    subtitle: "Using SAC's auto-tuned alpha as an early training diagnostic",
-    date: "31 July 2026",
-    summary:
-      "A field note on 128 Meta-World runs and the alpha regimes that separated successful and failed seeds before reward divergence.",
-    type: "research-note",
-    tags: ["Reinforcement Learning", "Diagnostics", "Robotic Manipulation"],
-    projectId: "sac-alpha",
   },
   {
     slug: "experimental-design-assistant",

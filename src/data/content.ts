@@ -99,8 +99,8 @@ export const projects: Project[] = [
     title: "Finding Frame",
     subtitle: "Evidence-anchored longitudinal clinical tracking from radiology reports",
     description:
-      "An evidence-anchored, six-slot pipeline for tracking radiology findings across time. The related Fact Graph paper was accepted at IntelliSys 2026; the extended FindingFrame system and benchmark paper is in preparation.",
-    stack: ["LLMs", "Clinical NLP", "Temporal Reasoning", "Healthcare AI", "Knowledge Graphs", "Evidence Gating"],
+      "An evidence-anchored, six-slot pipeline for tracking radiology findings across time, built on paired-report extraction and RECIST-oriented oncology progression tracking. The related Fact Graph paper was accepted at IntelliSys 2026; the extended FindingFrame system and benchmark paper is in preparation.",
+    stack: ["LLMs", "Clinical NLP", "Temporal Reasoning", "Healthcare AI", "Knowledge Graphs", "Evidence Gating", "Oncology AI"],
     period: "Spring 2026",
     spriteName: "fact_graph",
     writeupSlug: "finding-frame",
@@ -125,28 +125,15 @@ export const projects: Project[] = [
   {
     id: "sac-failure",
     title: "SAC Failure Regimes",
-    subtitle: "Recoverable and irrecoverable failure at high replay ratio",
+    subtitle: "Recoverable failure and an entropy-coefficient early-warning signal",
     description:
-      "A 530-job branched-intervention study of stalled reinforcement-learning runs. The experiments show that low-reward checkpoints are not one failure class: critic reinitialisation recovers some cohorts while others remain collapsed.",
-    stack: ["Reinforcement Learning", "SAC", "Robotics", "PyTorch", "Experiment Design"],
+      "A 530-job branched-intervention study of stalled reinforcement-learning runs, paired with a sole-author diagnostic study across 128 training runs and five Meta-World tasks. Low-reward checkpoints are not one failure class: critic reinitialisation recovers some cohorts while others remain collapsed, and a two-sided entropy-coefficient threshold classified 23 of 24 seeds on the hardest tasks before reward divergence became clear.",
+    stack: ["Reinforcement Learning", "SAC", "Robotics", "PyTorch", "Experiment Design", "Meta-World", "Stable-Baselines3", "Diagnostics"],
     period: "2026",
     spriteName: "neuron",
     writeupSlug: "sac-failure-regimes",
     image: "/projects/sac-failure.webp",
-    status: "Research manuscript",
-    category: "research",
-  },
-  {
-    id: "sac-alpha",
-    title: "SAC's Entropy Coefficient",
-    subtitle: "An implicit success signal in robotic manipulation",
-    description:
-      "A sole-author empirical study across 128 training runs and five Meta-World tasks. A two-sided entropy-coefficient threshold classified 23 of 24 seeds on the hardest tasks before reward divergence became clear.",
-    stack: ["Reinforcement Learning", "Meta-World", "Stable-Baselines3", "Diagnostics"],
-    period: "2026",
-    spriteName: "neuron",
-    writeupSlug: "sac-alpha-signal",
-    status: "Accepted poster · CAISc 2026",
+    status: "Manuscript under review · Poster accepted, CAISc 2026",
     category: "research",
     externalUrl: "https://openreview.net/forum?id=cylPMo1CeZ",
   },
@@ -176,20 +163,6 @@ export const projects: Project[] = [
     image: "/projects/bugzer.webp",
     status: "Active build",
     category: "system",
-  },
-  {
-    id: "radiology",
-    title: "Longitudinal Radiology Intelligence",
-    subtitle: "AI for Temporal Medical Reasoning",
-    description:
-      "Paired-report extraction and fact-graph workflows for identifying clinical change across sequential radiology reports, with a focus on entity persistence, temporal language, and RECIST-oriented progression tracking.",
-    stack: ["Clinical Intelligence", "Temporal NLP", "Oncology AI", "Medical LLMs"],
-    period: "Spring 2026",
-    spriteName: "neuron",
-    writeupSlug: "temporal-medical-reasoning",
-    image: "/projects/radiology.webp",
-    status: "Research internship work",
-    category: "research",
   },
   {
     id: "experimental-design",
@@ -235,10 +208,10 @@ export const projects: Project[] = [
 
 export const experiences: Experience[] = [
   {
-    title: "Business Analyst Intern · AI Committee",
+    title: "Business Analyst Intern",
     org: "Flipkart",
     description:
-      "Worked on analytics and AI-driven initiatives in large-scale e-commerce systems, with exposure to applied AI deployment and internal strategy discussions.",
+      "Built a geographic intelligence platform on Flipkart order data using Uber H3 and an HMRF spatial-clustering framework with Potts-model priors, surfacing explainable risk and anomaly signals across 1.8M+ hexagonal cells.",
     period: "May 2026 – Jul 2026",
   },
   {
@@ -281,7 +254,7 @@ export const experiences: Experience[] = [
 export const stats: Stat[] = [
   { value: 80, suffix: "+", label: "Students Mentored" },
   { value: 2, suffix: "", label: "Accepted Research Outputs" },
-  { value: 10, suffix: "", label: "Selected Projects & Studies" },
+  { value: 8, suffix: "", label: "Selected Projects & Studies" },
   { value: 500, suffix: " / 14K", label: "Rise for the World Finalist" },
 ];
 
